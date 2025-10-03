@@ -15,4 +15,3 @@ last_email_preview.txt
 # Secrets
 .env
 src/.env
-config/settings.yaml

@@ -1,0 +1,16 @@
+# news_api:
+#   provider: "newsdata"
+#   key: "pub_48694a3b5f9c4ad3aa518f8eb924e20c"
+#   base_url: "https://newsdata.io/api/1/news"
+
+news_api:
+  key: "56c76b7a-7767-4507-94a5-b58a4581e515"
+  base_url: "https://content.guardianapis.com/search"
+
+campaign_preferences:
+  priority_issues:
+    - climate
+    - healthcare
+    - education
+    - jobs
+    - Trump
