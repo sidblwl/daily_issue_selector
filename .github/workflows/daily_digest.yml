@@ -1,7 +1,7 @@
 name: Daily Digest
 on:
   schedule:
-    - cron: "30 18 * * *"  # 15:00 UTC ≈ 10am EST (11am EDT)
+    - cron: "0 11 * * *"  # 15:00 UTC ≈ 10am EST (11am EDT)
   workflow_dispatch: {}
 jobs:
   run-daily:
