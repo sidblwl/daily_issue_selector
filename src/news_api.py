@@ -1,3 +1,4 @@
+import os
 import requests
 import yaml
 
@@ -11,16 +12,19 @@ def fetch_trending_articles():
     global _next_page
     try:
         config = load_config()
-        api_key = config["news_api"]["key"]
-        url = "https://content.guardianapis.com/search"
+        # First try to read from env, else fallback to YAML for local testing
+        api_key = os.getenv("GUARDIAN_API_KEY") or config["news_api"].get("key")
+        if not api_key:
+            raise RuntimeError("Guardian API key not found. Set GUARDIAN_API_KEY or add to settings.yaml.")
 
+        url = config["news_api"].get("base_url", "https://content.guardianapis.com/search")
         params = {
             "api-key": api_key,
-            "section": "us-news",  # covers US politics too
+            "section": "us-news",
             "page": _next_page,
             "page-size": 10,
             "order-by": "newest",
-            "show-fields": "body,headline,trailText"
+            "show-fields": "body,headline,trailText",
         }
 
         print(f"\nFetching articles from {url} (page {_next_page})...")
@@ -33,7 +37,6 @@ def fetch_trending_articles():
             print("⚠️ No articles found")
             return {"results": [], "nextPage": None}
 
-        # transform guardian data to match your app’s expected structure
         articles = []
         for item in results:
             fields = item.get("fields", {})
@@ -46,7 +49,6 @@ def fetch_trending_articles():
                 "url": item.get("webUrl", "")
             })
 
-        # increment page for next call
         _next_page += 1
         return {"results": articles, "nextPage": _next_page}
 

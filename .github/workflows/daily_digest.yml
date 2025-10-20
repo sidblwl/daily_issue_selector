@@ -14,6 +14,7 @@ jobs:
       - run: python scripts/send_daily.py
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GUARDIAN_API_KEY: ${{ secrets.GUARDIAN_API_KEY }}
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
           SMTP_PORT: ${{ secrets.SMTP_PORT }}
           SMTP_USER: ${{ secrets.SMTP_USER }}
